@@ -13,11 +13,11 @@ submitBtn.addEventListener("click", function (event) {
     userPages.value,
     userRead.checked
   );
-  console.log(myLibrary);
   createBookCard();
+  console.log(myLibrary);
 });
 
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, havRead) {
   this.title = title;
@@ -27,12 +27,14 @@ function Book(title, author, pages, havRead) {
 }
 
 function addBookToLibrary(title, author, pages, havRead) {
-  let newBook = new Book(title, author, pages, havRead);
+  const newBook = new Book(title, author, pages, havRead);
   myLibrary.push(newBook);
 }
 
 // Create a book card
 function createBookCard() {
+  bookCardContainer.innerHTML = "";
+
   myLibrary.forEach(function (number) {
     let bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
@@ -44,8 +46,6 @@ function createBookCard() {
       bookCard.appendChild(infoField);
       infoField.textContent = number[x];
     }
-
-    //   newDiv.textContent = txt;
     bookCardContainer.appendChild(bookCard);
   });
 }
