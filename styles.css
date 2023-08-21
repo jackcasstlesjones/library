@@ -1,0 +1,41 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+input {
+  width: 50%;
+  /* margin: auto; */
+}
+
+.book-card {
+  width: 300px;
+  margin: auto;
+  background-color: red;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+  gap: 5px;
+  /* margin-top: 20px; */
+}
+
+.info-field {
+  color: white;
+  font-family: inherit;
+  background-color: blue;
+  padding: 10px;
+  /* font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif; */
+}
