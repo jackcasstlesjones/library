@@ -4,9 +4,16 @@ const userAuthor = document.getElementById("author");
 const userPages = document.getElementById("pages");
 const userRead = document.getElementById("read");
 const submitBtn = document.getElementById("submit-button");
+const formModal = document.getElementById("form-modal");
+const addBookBtn = document.getElementById("add-book-button");
+
+addBookBtn.addEventListener("click", function () {
+  formModal.showModal();
+});
 
 submitBtn.addEventListener("click", function (event) {
   event.preventDefault();
+  formModal.close();
   addBookToLibrary(
     userTitle.value,
     userAuthor.value,

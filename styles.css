@@ -3,20 +3,41 @@
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
+#add-book-button {
+  margin: auto;
+  width: 120px;
+  height: 100px;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 100%;
   gap: 10px;
   text-align: center;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
 }
 
 input {
-  width: 50%;
+  width: 100%;
   /* margin: auto; */
+}
+
+/* .form-modal {
+  width: 20%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+#book-card-container {
+  width: 80%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
 }
 
 .book-card {
