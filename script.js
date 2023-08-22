@@ -42,10 +42,19 @@ function populateBookCard() {
     let bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
     bookCardContainer.appendChild(bookCard);
+    bookCard.dataset.index = myLibrary.indexOf(number);
+    let bookcardIndex = bookCard.dataset.index;
+
     let removeButton = document.createElement("button");
     removeButton.classList.add("remove-button");
     bookCard.prepend(removeButton);
     removeButton.textContent = "Remove";
+
+    removeButton.addEventListener("click", function () {
+      myLibrary.splice(bookcardIndex, 1);
+      console.log(myLibrary);
+      createBookCard();
+    });
 
     let text = "";
     for (let x in number) {
