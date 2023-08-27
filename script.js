@@ -29,17 +29,19 @@ submitBtn.addEventListener("click", function (event) {
 let myLibrary = [];
 
 // Create an object with the values that the use inputs
-function Book(title, author, pages, havRead) {
-  this.title = `"${title}"`;
-  this.author = author;
-  this.pages = `${pages} pages`;
-  this.havRead = havRead;
+class Book {
+  constructor(title, author, pages, havRead) {
+    this.title = `"${title}"`;
+    this.author = author;
+    this.pages = `${pages} pages`;
+    this.havRead = havRead;
+  }
 }
 
 // Push to myLibrary array
 function addBookToLibrary(title, author, pages, havRead) {
   havRead = havRead === true ? "Read" : "Not read";
-  const newBook = new Book(title, author, pages, havRead);
+  let newBook = new Book(title, author, pages, havRead);
   myLibrary.push(newBook);
 }
 
