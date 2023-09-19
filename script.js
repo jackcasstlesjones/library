@@ -1,3 +1,33 @@
+// Create a Book class
+class Book {
+  constructor(title, author, pages, havRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.havRead = havRead;
+  }
+
+  toggleReadStatus() {
+    this.havRead = this.havRead === "Read" ? "Not read" : "Read";
+  }
+}
+
+// Create a Library class to manage the library of books
+class Library {
+  constructor() {
+    this.books = [];
+  }
+
+  addBook(book) {
+    this.books.push(book);
+  }
+
+  removeBook(index) {
+    this.books.splice(index, 1);
+  }
+}
+
+// DOM elements
 const bookCardContainer = document.getElementById("book-card-container");
 const userTitle = document.getElementById("title");
 const userAuthor = document.getElementById("author");
@@ -7,98 +37,69 @@ const submitBtn = document.getElementById("submit-button");
 const formModal = document.getElementById("form-modal");
 const addBookBtn = document.getElementById("add-book-button");
 
+// Create a Library instance
+const library = new Library();
+
 // Add book button shows form modal
-addBookBtn.addEventListener("click", function () {
+addBookBtn.addEventListener("click", () => {
   formModal.showModal();
 });
 
-// Submit form button that also controls the modal
-submitBtn.addEventListener("click", function (event) {
+// Handle form submission and add a new book
+submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
   formModal.close();
-  addBookToLibrary(
-    userTitle.value,
-    userAuthor.value,
-    userPages.value,
-    userRead.checked
-  );
-  createBookCard();
+  const title = userTitle.value;
+  const author = userAuthor.value;
+  const pages = userPages.value + " pages";
+  const havRead = userRead.checked ? "Read" : "Not read";
+  const newBook = new Book(title, author, pages, havRead);
+  library.addBook(newBook);
+  renderBookCards();
 });
 
-// Empty library array
-let myLibrary = [];
-
-// Create an object with the values that the use inputs
-class Book {
-  constructor(title, author, pages, havRead) {
-    this.title = `"${title}"`;
-    this.author = author;
-    this.pages = `${pages} pages`;
-    this.havRead = havRead;
-  }
-}
-
-// Push to myLibrary array
-function addBookToLibrary(title, author, pages, havRead) {
-  havRead = havRead === true ? "Read" : "Not read";
-  let newBook = new Book(title, author, pages, havRead);
-  myLibrary.push(newBook);
-}
-
-// Create a book card
-function createBookCard() {
+// Render book cards
+function renderBookCards() {
   bookCardContainer.innerHTML = "";
-  populateBookCard();
+  populateBookCards();
 }
 
-// Add content and remove button to each book card
-function populateBookCard() {
-  myLibrary.forEach(function (number) {
-    // Create book card and create data attribute for each
-    let bookCard = document.createElement("div");
+// Populate book cards with book details
+function populateBookCards() {
+  library.books.forEach((book, index) => {
+    const bookCard = document.createElement("div");
     bookCard.classList.add("book-card");
+    bookCard.dataset.index = index;
     bookCardContainer.appendChild(bookCard);
-    bookCard.dataset.index = myLibrary.indexOf(number);
-    let bookcardIndex = bookCard.dataset.index;
 
-    // Create remove button in each book card
-    let removeButton = document.createElement("button");
+    const removeButton = document.createElement("button");
     removeButton.classList.add("remove-button");
-    bookCard.prepend(removeButton);
     removeButton.textContent = "Remove";
+    bookCard.prepend(removeButton);
 
-    // Add function to remove button
-    removeButton.addEventListener("click", function () {
-      myLibrary.splice(bookcardIndex, 1);
-      console.log(myLibrary);
-      createBookCard();
+    removeButton.addEventListener("click", () => {
+      library.removeBook(index);
+      renderBookCards();
     });
 
-    // Populate cards with the Book values that user inputs
-    let text = "";
-    for (let x in number) {
-      text += number[x];
-      let infoField = document.createElement("p");
+    for (const key in book) {
+      const infoField = document.createElement("p");
       infoField.classList.add("info-field");
+      infoField.textContent = `${key}: ${book[key]}`;
       bookCard.appendChild(infoField);
-      infoField.textContent = number[x];
     }
 
-    // Create change read/unread button
-    let changeReadButton = document.createElement("button");
+    const changeReadButton = document.createElement("button");
     changeReadButton.classList.add("change-read-button");
     changeReadButton.textContent = "Change read/unread";
     bookCard.appendChild(changeReadButton);
 
-    // Change read/unread
-    changeReadButton.addEventListener("click", function () {
-      if (number.havRead === "Read") {
-        number.havRead = "Not read";
-      } else if (number.havRead === "Not read") {
-        number.havRead = "Read";
-      }
-      console.log(number);
-      createBookCard();
+    changeReadButton.addEventListener("click", () => {
+      book.toggleReadStatus();
+      renderBookCards();
     });
   });
 }
+
+// Initial rendering of book cards
+renderBookCards();
